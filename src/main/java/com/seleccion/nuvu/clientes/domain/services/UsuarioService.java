@@ -5,6 +5,7 @@ import java.time.LocalDateTime;
 import com.seleccion.nuvu.clientes.api.models.UsuarioModel;
 import com.seleccion.nuvu.clientes.domain.entities.Usuario;
 import com.seleccion.nuvu.clientes.domain.repositories.UsuarioRepository;
+import com.seleccion.nuvu.clientes.security.utils.BCryptPasswordEncoderConfig;
 
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
@@ -17,6 +18,7 @@ import lombok.AllArgsConstructor;
 public class UsuarioService {
 
     private final UsuarioRepository usuarioRepository;
+    private final BCryptPasswordEncoderConfig encoder;
 
     @Transactional(readOnly = true)
     public UsuarioModel listarUsuarioPorEmail(String email) throws UsernameNotFoundException {
@@ -30,7 +32,10 @@ public class UsuarioService {
     @Transactional
     public UsuarioModel registrarUsuario(UsuarioModel usuarioDTO) {
 
+        String password = encoder.passwordEncoder().encode(usuarioDTO.getPassword());
+
         usuarioDTO.setFechaCreacion(LocalDateTime.now());
+        usuarioDTO.setPassword(password);
 
         usuarioRepository.save(toUsuario(usuarioDTO));
 
