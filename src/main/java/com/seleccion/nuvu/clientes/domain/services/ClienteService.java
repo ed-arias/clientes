@@ -36,11 +36,8 @@ public class ClienteService {
     public List<ClienteModel> listarClientes() {
         return clienteRepository.findAll()
             .stream()
-            .map(
-                cliente -> toClienteModel(cliente))
-                .collect(Collectors.toList()
-            );
-
+            .map(this::toClienteModel)
+            .collect(Collectors.toList());
     }
 
     @Transactional(readOnly = true)
@@ -61,7 +58,6 @@ public class ClienteService {
 
     public List<TarjetaCreditoModel> listarTarjetasCreditoPorCliente(Long id) throws Exception {
         
-        //Obtener cliente por id
         ClienteModel clienteModel = listarClientePorId(id);
 
         return clienteModel.getTarjetasCredito();

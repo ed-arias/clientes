@@ -27,23 +27,13 @@ public class SecurityConfigurer extends WebSecurityConfigurerAdapter {
         auth.userDetailsService(detallesUsuarioService);
     }
 
-    // @Bean
-    // public PasswordEncoder noPasswordEncoder() {
-    //     return NoOpPasswordEncoder.getInstance();
-    // }
-
-    // @Bean
-    // PasswordEncoder passwordEncoder() {
-    //     return new BCryptPasswordEncoder();
-    // }
-
     @Override
 	@Bean
 	public AuthenticationManager authenticationManagerBean() throws Exception {
 		return super.authenticationManagerBean();
 	}
 
-    @Override
+    @Override // /api/v1/auth/**
 	protected void configure(HttpSecurity httpSecurity) throws Exception {
 		httpSecurity.cors().disable().csrf().disable()
 				.authorizeRequests().antMatchers("/api/v1/auth/**").permitAll().

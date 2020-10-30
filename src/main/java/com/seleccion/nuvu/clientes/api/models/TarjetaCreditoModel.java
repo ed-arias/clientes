@@ -38,6 +38,4 @@ public class TarjetaCreditoModel {
     
     private LocalDate fechaExpriracion;
 
-    private ClienteModel clienteModel;
-
 }
