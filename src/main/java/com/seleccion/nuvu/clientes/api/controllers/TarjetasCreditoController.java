@@ -25,14 +25,6 @@ public class TarjetasCreditoController {
 
     private final TarjetaCreditoService tarjetaCreditoService;
 
-    @PostMapping
-    public ResponseEntity<TarjetaCreditoModel> registrarTarjeta(@Valid @RequestBody TarjetaCreditoModel tarjetaCreditoModel) {
-        return new ResponseEntity<>(
-            tarjetaCreditoService.registrarTarjeta(tarjetaCreditoModel),
-            HttpStatus.CREATED
-        );
-    }
-
     @GetMapping
     public ResponseEntity<List<TarjetaCreditoModel>> listarTarjetas() {
         return new ResponseEntity<>(
